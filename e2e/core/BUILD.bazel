@@ -6,7 +6,7 @@ load(":defs.bzl", "my_nodejs")
 write_file(
     name = "js",
     out = "some.js",
-    content = ["require('fs').writeFileSync(process.argv[2], 'stuff')"],
+    content = ["require('fs').writeFileSync(process.argv[2], process.version)"],
 )
 
 write_file(
@@ -64,6 +64,7 @@ my_nodejs(
     name = "run",
     out = "thing",
     entry_point = "some.js",
+    toolchain = "@node16_toolchains//:resolved_toolchain",
 )
 
 # Assert that the node program wrote the file we expect

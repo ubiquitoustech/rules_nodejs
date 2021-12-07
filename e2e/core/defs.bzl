@@ -1,7 +1,11 @@
 "Simple rule to test nodejs toolchain"
 
 def _my_nodejs_impl(ctx):
-    toolchain = ctx.toolchains["@rules_nodejs//nodejs:toolchain_type"].nodeinfo
+    print(getattr(ctx.attr.toolchain, 'ToolchainInfo'))
+    # if NodeInfo in ctx.attr.toolchain
+    # toolchain = ctx.attr.toolchain.nodeinfo
+    toolchain = ctx.attr.toolchain
+    # toolchain = ctx.toolchains["@rules_nodejs//nodejs:toolchain_type"].nodeinfo
     ctx.actions.run(
         inputs = toolchain.tool_files + [ctx.file.entry_point],
         executable = toolchain.target_tool_path,
